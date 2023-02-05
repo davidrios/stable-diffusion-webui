@@ -17,8 +17,11 @@ def create_ui():
 
                 with gr.TabItem('Batch from Directory', elem_id="extras_batch_directory_tab") as tab_batch_dir:
                     extras_batch_input_dir = gr.Textbox(label="Input directory", **shared.hide_dirs, placeholder="A directory on the same machine where the server is running.", elem_id="extras_batch_input_dir")
+                    extras_recurse_subdirs = gr.Checkbox(label='Recurse over all subdirectories', value=False, elem_id="extras_recurse_subdirs")
                     extras_batch_output_dir = gr.Textbox(label="Output directory", **shared.hide_dirs, placeholder="Leave blank to save images to the default path.", elem_id="extras_batch_output_dir")
                     show_extras_results = gr.Checkbox(label='Show result images', value=True, elem_id="extras_show_extras_results")
+                    extras_preserve_file_names = gr.Checkbox(label='Preserve file names', value=False, elem_id="extras_preserve_file_names")
+                    extras_skip_existing = gr.Checkbox(label='Skip existing files', value=False, elem_id="extras_skip_existing")
 
             submit = gr.Button('Generate', elem_id="extras_generate", variant='primary')
 
@@ -40,6 +43,9 @@ def create_ui():
             extras_batch_input_dir,
             extras_batch_output_dir,
             show_extras_results,
+            extras_recurse_subdirs,
+            extras_preserve_file_names,
+            extras_skip_existing,
             *script_inputs
         ],
         outputs=[

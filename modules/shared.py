@@ -696,9 +696,17 @@ mem_mon = modules.memmon.MemUsageMonitor("MemMon", device, opts)
 mem_mon.start()
 
 
-def listfiles(dirname):
-    filenames = [os.path.join(dirname, x) for x in sorted(os.listdir(dirname)) if not x.startswith(".")]
-    return [file for file in filenames if os.path.isfile(file)]
+def listfiles(dirname, recursive=False):
+    if recursive:
+        filenames = []
+        for root, _, files in os.walk(dirname):
+            for file in sorted(files):
+                if file.startswith('.'): continue
+                filenames.append(os.path.join(root, file))
+        return filenames
+    else:
+        filenames = [os.path.join(dirname, x) for x in sorted(os.listdir(dirname)) if not x.startswith(".")]
+        return [file for file in filenames if os.path.isfile(file)]
 
 
 def html_path(filename):
